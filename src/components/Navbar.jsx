@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import useClickOutSide from "../hooks/useClickOutSide";
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
+  const { show, setShow, nodeRef } = useClickOutSide();
 
-  const handleNav = () => {
-    setNav(!nav);
+  const handleShow = () => {
+    setShow(!show);
   };
 
   return (
@@ -20,15 +21,16 @@ const Navbar = () => {
         <li className="m-4 cursor-pointer">About</li>
         <li className="m-4 cursor-pointer">Contact</li>
       </ul>
-      <div onClick={handleNav} className="block md:hidden">
-        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+      <div onClick={handleShow} className="block cursor-pointer md:hidden">
+        {show ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
       <div
         className={
-          nav
+          show
             ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500"
             : "fixed left-[-100%]"
         }
+        ref={nodeRef}
       >
         <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">
           FINANCE
